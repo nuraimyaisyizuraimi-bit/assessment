@@ -132,20 +132,44 @@ function updateAll(){
   }
 }
 
-// ---------- Safe custom formula evaluator ----------
 function evaluateFormula(expr, vars){
   const raw = (expr || "").trim();
-  if (!raw) return { ok:false, error:"Enter a formula (e.g. A5 + A20)" };
+  if (!raw) return { ok:false, error:"Enter a formula using A-values (e.g. A5 + A20)" };
 
-  // allow only these characters
-  // A, numbers, whitespace, operators + - * / ( ) . 
-  if (!/^[A0-9+\-*/().\s]+$/i.test(raw)){
-    return { ok:false, error:"Only A-values and + - * / ( ) are allowed." };
+  const upper = raw.toUpperCase();
+  const allowedVars = ["A5","A7","A12","A13","A15","A20"];
+  const allowedSet = new Set(allowedVars);
+
+  // ✅ MUST contain at least one allowed variable
+  const hasAllowedVar = allowedVars.some(v => new RegExp(`\\b${v}\\b`).test(upper));
+  if (!hasAllowedVar){
+    return { ok:false, error:"Formula must use at least one variable: A5, A7, A12, A13, A15, A20." };
   }
 
-  // replace variables
-  const replaced = raw
-    .toUpperCase()
+  // Allow only numbers, spaces, + - * / . ( ) and letters A
+  if (!/^[0-9+\-*/().\sA]+$/i.test(raw)){
+    return { ok:false, error:"Only A5, A7, A12, A13, A15, A20 and + - * / ( ) are allowed." };
+  }
+
+  // Block any variable token NOT in allowed list
+  const tokens = upper.match(/[A-Z]+[0-9]*/g) || [];
+  for (const t of tokens){
+    if (/[A-Z]/.test(t) && !allowedSet.has(t)){
+      return { ok:false, error:`Invalid variable "${t}". Allowed: ${allowedVars.join(", ")}.` };
+    }
+  }
+
+  // Parentheses balance check
+  let bal = 0;
+  for (const ch of upper){
+    if (ch === "(") bal++;
+    if (ch === ")") bal--;
+    if (bal < 0) return { ok:false, error:"Parentheses are not balanced." };
+  }
+  if (bal !== 0) return { ok:false, error:"Parentheses are not balanced." };
+
+  // Replace variables
+  let replaced = upper
     .replace(/\bA5\b/g,  String(vars.A5))
     .replace(/\bA7\b/g,  String(vars.A7))
     .replace(/\bA12\b/g, String(vars.A12))
@@ -153,16 +177,26 @@ function evaluateFormula(expr, vars){
     .replace(/\bA15\b/g, String(vars.A15))
     .replace(/\bA20\b/g, String(vars.A20));
 
+  // After replacement, only numbers/operators remain
+  if (!/^[0-9+\-*/().\s]+$/.test(replaced)){
+    return { ok:false, error:"Formula contains invalid content." };
+  }
+
   try{
     // eslint-disable-next-line no-new-func
-    const fn = new Function(`return (${replaced});`);
+    const fn = new Function(`"use strict"; return (${replaced});`);
     const value = fn();
-    if (!Number.isFinite(value)) return { ok:false, error:"Result is not a valid number." };
-    return { ok:true, value: (Math.round(value * 100) / 100) };
+
+    if (!Number.isFinite(value)){
+      return { ok:false, error:"Result is not a valid number (maybe divide by zero?)." };
+    }
+
+    return { ok:true, value: Math.round(value * 100) / 100 };
   }catch{
     return { ok:false, error:"Invalid formula format." };
   }
 }
+
 
 // ---------- Page transitions on navigation ----------
 function wireNavFade(){
