@@ -10,44 +10,44 @@
   --p4:#fb7185;   /* pink */
 
   --glass: rgba(255,255,255,0.06);
-  --glass2: rgba(255,255,255,0.09);
   --border: rgba(255,255,255,0.12);
 
   --shadow: 0 22px 70px rgba(0,0,0,.55);
 }
 
 *{box-sizing:border-box}
+html,body{height:100%}
+
 body{
   margin:0;
-  min-height:100vh;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   background: radial-gradient(1200px 700px at 20% 0%, rgba(124,58,237,.25), transparent 55%),
               radial-gradient(1200px 700px at 90% 10%, rgba(34,211,238,.18), transparent 60%),
               radial-gradient(900px 600px at 60% 90%, rgba(245,158,11,.14), transparent 55%),
               linear-gradient(180deg, var(--bg1), var(--bg2));
-  display:grid;
-  place-items:center;
-  padding: 24px 14px 40px;
+  padding: clamp(14px, 3vw, 28px);
 }
 
-/* Extra glow layer */
+/* Soft glow overlay */
 .bg-glow{
   position:fixed;
   inset:-40px;
-  background: radial-gradient(500px 320px at 20% 20%, rgba(251,113,133,.18), transparent 60%),
-              radial-gradient(520px 360px at 80% 30%, rgba(124,58,237,.18), transparent 60%),
-              radial-gradient(520px 360px at 60% 80%, rgba(34,211,238,.12), transparent 60%);
+  background: radial-gradient(520px 360px at 15% 20%, rgba(251,113,133,.16), transparent 60%),
+              radial-gradient(600px 420px at 85% 30%, rgba(124,58,237,.18), transparent 60%),
+              radial-gradient(600px 420px at 60% 85%, rgba(34,211,238,.12), transparent 60%);
   filter: blur(18px);
   opacity: .9;
   pointer-events:none;
 }
 
-/* Phone frame */
+/* ====== RESPONSIVE LAYOUT WRAPPER ====== */
 .phone{
-  width: min(430px, 100%);
-  border-radius: 34px;
-  padding: 16px 14px 18px;
+  width: 100%;
+  max-width: 980px;              /* desktop max */
+  margin: 0 auto;
+  border-radius: clamp(18px, 3vw, 34px);
+  padding: clamp(12px, 2vw, 18px);
   background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   border: 1px solid rgba(255,255,255,.10);
   box-shadow: var(--shadow);
@@ -55,6 +55,7 @@ body{
   backdrop-filter: blur(14px);
 }
 
+/* Top bar */
 .statusbar{
   display:flex;
   align-items:center;
@@ -63,18 +64,20 @@ body{
   color: rgba(255,255,255,.75);
   font-size: 12px;
 }
-.dots{width:44px;height:10px;border-radius:999px;background:rgba(255,255,255,.08)}
-.icons{width:44px;height:10px;border-radius:999px;background:rgba(255,255,255,.08)}
+.dots,.icons{
+  width:44px;height:10px;border-radius:999px;background:rgba(255,255,255,.08)
+}
 .status{letter-spacing:.6px;text-transform:uppercase}
 
+/* Header */
 .hero{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding: 12px 10px 6px;
 }
-.hello{font-weight:900;font-size:18px}
-.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.hello{font-weight:900;font-size: clamp(16px, 2.2vw, 20px)}
+.sub{font-size: 12px;color:var(--muted);margin-top:3px}
 
 .badge{
   font-size: 12px;
@@ -86,17 +89,19 @@ body{
   box-shadow: 0 0 18px rgba(124,58,237,.22);
 }
 
+/* Cards container:
+   - Phone/tablet: 1 column
+   - Desktop: 2 columns */
 .cards{
   display:grid;
   gap: 12px;
   padding: 6px 6px 10px;
+  grid-template-columns: 1fr;
 }
 
 .card{
-  border-radius: 22px;
-  padding: 14px;
-}
-.glass{
+  border-radius: clamp(16px, 2.6vw, 22px);
+  padding: clamp(12px, 2vw, 16px);
   background: linear-gradient(180deg, var(--glass), rgba(255,255,255,0.03));
   border: 1px solid var(--border);
   backdrop-filter: blur(14px);
@@ -105,14 +110,18 @@ body{
 
 .card-title{
   font-weight: 900;
-  letter-spacing:.2px;
   margin-bottom: 10px;
+  font-size: 14px;
 }
 
+/* Inputs grid:
+   - small phone: 1 col
+   - phone/tablet: 2 col
+   - desktop: 3 col */
 .grid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  grid-template-columns: 1fr;
 }
 
 .field{
@@ -120,17 +129,16 @@ body{
   flex-direction:column;
   gap:6px;
   padding: 10px;
-  border-radius: 18px;
+  border-radius: clamp(14px, 2vw, 18px);
   background: rgba(0,0,0,0.22);
   border: 1px solid rgba(255,255,255,0.10);
 }
-
 .field span{ font-size: 12px; color: var(--muted); }
 
 input{
   width:100%;
   padding: 12px 12px;
-  border-radius: 16px;
+  border-radius: clamp(12px, 2vw, 16px);
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.05);
   color: var(--text);
@@ -145,12 +153,14 @@ input:focus{
   display:flex;
   gap:10px;
   margin-top: 12px;
+  flex-wrap: wrap;
 }
 
 .btn{
   flex:1;
+  min-width: 140px;
   padding: 12px 12px;
-  border-radius: 18px;
+  border-radius: clamp(14px, 2vw, 18px);
   border: 1px solid rgba(255,255,255,0.14);
   cursor:pointer;
   font-weight:900;
@@ -164,18 +174,20 @@ input:focus{
   background: linear-gradient(90deg, rgba(124,58,237,.26), rgba(34,211,238,.14));
   box-shadow: 0 0 18px rgba(124,58,237,.20);
 }
-.btn.soft{
-  background: rgba(0,0,0,.22);
-}
+.btn.soft{ background: rgba(0,0,0,.22); }
 
-.table-wrap{ width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+/* Table: always safe on small screens */
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius: 18px;
+}
 
 table{
   width:100%;
   border-collapse: collapse;
-  min-width: 520px;
-  border-radius: 18px;
-  overflow:hidden;
+  min-width: 520px; /* ensures horizontal scroll on small screens */
 }
 th, td{
   padding: 12px;
@@ -206,15 +218,18 @@ tr:nth-child(even) td{ background: rgba(255,255,255,0.03); }
 .hidden{ display:none; }
 
 .bottom-nav{
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 10px 10px 2px;
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .nav-pill{
   display:inline-flex;
   align-items:center;
   gap:8px;
   padding: 10px 12px;
-  margin: 6px 6px 0 0;
   border-radius: 999px;
   background: rgba(0,0,0,.22);
   border: 1px solid rgba(255,255,255,0.10);
@@ -228,7 +243,12 @@ tr:nth-child(even) td{ background: rgba(255,255,255,0.03); }
   box-shadow: 0 0 10px rgba(34,211,238,.7);
 }
 
-@media (max-width: 420px){
-  .grid{ grid-template-columns: 1fr; }
-  table{ min-width: 500px; }
+/* ====== BREAKPOINTS ====== */
+@media (min-width: 520px){
+  .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px){
+  .cards{ grid-template-columns: 1.1fr 0.9fr; } /* desktop split */
+  .grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  table{ min-width: 100%; } /* no forced scroll on big screens */
 }
