@@ -1,40 +1,72 @@
-body {
+:root{
+  --bg: #070814;
+  --panel: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.10);
+  --text: rgba(255,255,255,0.88);
+  --p1: #a855f7; /* purple */
+  --p2: #22d3ee; /* cyan */
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin:0;
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f5f7fa;
-  padding: 40px;
+  background:
+    radial-gradient(900px 520px at 15% 10%, rgba(168,85,247,0.22), transparent 60%),
+    radial-gradient(900px 520px at 85% 20%, rgba(34,211,238,0.15), transparent 55%),
+    linear-gradient(180deg, #050611, #070814 35%, #050611);
+  padding: 28px 16px 48px;
 }
 
-h2 {
-  color: #2c3e50;
-  margin-bottom: 10px;
+h2{
+  margin: 22px auto 12px;
+  max-width: 980px;
+  font-size: 20px;
+  text-align: left;
+  color: rgba(255,255,255,0.92);
 }
 
-table {
+h2::after{
+  content:"";
+  display:block;
+  margin-top:10px;
+  height:2px;
+  width:120px;
+  background: linear-gradient(90deg, var(--p1), var(--p2));
+  border-radius: 99px;
+}
+
+table{
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto 18px;
   border-collapse: collapse;
-  width: 60%;
-  margin-bottom: 30px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-th {
-  background-color: #4f46e5;
-  color: white;
+th, td{
   padding: 12px;
-}
-
-td {
-  padding: 10px;
-  border: 1px solid #ddd;
-}
-
-tr:nth-child(even) td {
-  background-color: #f9fafb;
-}
-
-/* Center everything nicely */
-table, h2 {
-  margin-left: auto;
-  margin-right: auto;
+  border-bottom: 1px solid var(--border);
   text-align: center;
+  font-size: 14px;
+}
+
+th{
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.95);
+  background: linear-gradient(90deg, rgba(168,85,247,0.22), rgba(34,211,238,0.12));
+}
+
+tr:nth-child(even) td{
+  background: rgba(255,255,255,0.03);
+}
+
+@media (max-width: 420px){
+  table{ display:block; overflow-x:auto; }
 }
