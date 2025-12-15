@@ -140,7 +140,7 @@ function evaluateFormula(expr, vars){
   const allowedVars = ["A5","A7","A12","A13","A15","A20"];
   const allowedSet = new Set(allowedVars);
 
-  // ✅ MUST contain at least one allowed variable
+  // MUST contain at least one allowed variable
   const hasAllowedVar = allowedVars.some(v => new RegExp(`\\b${v}\\b`).test(upper));
   if (!hasAllowedVar){
     return { ok:false, error:"Formula must use at least one variable: A5, A7, A12, A13, A15, A20." };
@@ -247,3 +247,4 @@ document.addEventListener("DOMContentLoaded", ()=>{
   wireNavFade();
   updateAll();
 });
+
