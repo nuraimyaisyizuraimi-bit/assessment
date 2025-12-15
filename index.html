@@ -2,34 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Home | Simple Assessment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Pastel Clay UI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="board page">
-    <div class="nav">
-      <a class="active" href="index.html">Home</a>
-      <a href="tables.html">Tables</a>
-      <a href="calculator.html">Calculator</a>
-      <a href="more.html">More</a>
-    </div>
 
-    <div class="grid twoEq">
-      <section class="card">
-        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
-        <h2>🌿 Pastel Clay UI</h2>
-        <p>
-          A soft 3D-inspired interface (pastel + clay feel) built with real HTML/CSS.
-          Works on mobile, tablet, and desktop.
-        </p>
-      </section>
+<div class="container page">
 
-    </div>
+  <!-- NAV -->
+  <div class="nav">
+    <a class="active" href="index.html">Home</a>
+    <a href="tables.html">Tables</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="more.html">More</a>
   </div>
 
-  <script src="script.js"></script>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="brand">
+        <span class="logo">🌿</span>
+        <h1>Pastel Clay UI</h1>
+      </div>
+
+      <p class="hero-desc">
+        A soft 3D-inspired interface (pastel + clay feel) built with real HTML/CSS.
+        Simple, smooth, and friendly on mobile, tablet, and desktop.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="calculator.html">🧮 Try Calculator</a>
+        <a class="btn" href="tables.html">📋 View Tables</a>
+      </div>
+
+      <div class="chips">
+        <span class="chip">✔ Responsive</span>
+        <span class="chip">✔ Clean Layout</span>
+        <span class="chip">✔ Beginner Friendly</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="blob big"></div>
+      <div class="glass-card">
+        <div class="tiny-title">Quick Tip ✨</div>
+        <p>Use the Calculator page to instantly generate results from your table input.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK ACTIONS -->
+  <section class="grid">
+    <a class="card-link" href="tables.html">
+      <div class="card">
+        <div class="icon">📋</div>
+        <h3>Tables</h3>
+        <p>View and manage your input data in a clean table layout.</p>
+      </div>
+    </a>
+
+    <a class="card-link" href="calculator.html">
+      <div class="card">
+        <div class="icon">🧮</div>
+        <h3>Calculator</h3>
+        <p>Enter values and instantly calculate + display results nicely.</p>
+      </div>
+    </a>
+
+    <a class="card-link" href="more.html">
+      <div class="card">
+        <div class="icon">✨</div>
+        <h3>More</h3>
+        <p>Extra pages, notes, and additional UI components.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div>
+          <h4>Pick a page</h4>
+          <p>Choose Tables or Calculator from the menu.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div>
+          <h4>Enter your values</h4>
+          <p>Fill in the inputs or data fields as needed.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div>
+          <h4>See results</h4>
+          <p>Get output immediately with a friendly UI display.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 </body>
 </html>
-
-
