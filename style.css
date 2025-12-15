@@ -627,3 +627,207 @@ tbody td{
   margin: 6px 0 0;
   opacity: .78;
 }
+
+/* ===== CREATIVE TABLES PAGE ===== */
+
+.tables-hero{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255,255,255,0.35);
+  box-shadow: inset 10px 10px 24px rgba(0,0,0,0.05),
+              inset -10px -10px 24px rgba(255,255,255,0.7);
+}
+
+.hero-badge{
+  display:inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(168,224,205,0.85);
+  font-weight: 700;
+}
+
+.hero-title{
+  margin: 10px 0 6px;
+  font-size: 38px;
+}
+
+.hero-desc{
+  margin: 0 0 14px;
+  opacity: 0.78;
+  line-height: 1.55;
+}
+
+.pill-switch{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pill{
+  border: 0;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.75);
+  box-shadow: inset 6px 6px 12px rgba(0,0,0,0.06),
+              inset -6px -6px 12px rgba(255,255,255,0.75);
+  font-weight: 700;
+}
+
+.pill.active{
+  background: rgba(168,224,205,0.95);
+}
+
+.hero-right .mini-card{
+  height: 100%;
+  border-radius: 22px;
+  padding: 16px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right .mini-card::before{
+  content:"";
+  position:absolute;
+  width: 220px;
+  height: 220px;
+  right: -80px;
+  top: -80px;
+  border-radius: 60px;
+  transform: rotate(18deg);
+  background: rgba(168,224,205,0.5);
+}
+
+.mini-title{ font-weight: 900; margin-bottom: 10px; }
+.mini-row{ display:flex; gap: 8px; flex-wrap: wrap; }
+.mini-chip{
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.75);
+  font-size: 13px;
+  font-weight: 600;
+}
+.mini-foot{ margin-top: 12px; opacity: .75; }
+
+/* Stack cards */
+.tables-stack{
+  margin-top: 18px;
+  display:flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* The big table cards */
+.tcard{
+  border-radius: 26px;
+  padding: 18px;
+  background: rgba(255,255,255,0.4);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.12);
+  position: relative;
+  overflow:hidden;
+}
+
+/* Decorative shapes inside each card */
+.tcard::before{
+  content:"";
+  position:absolute;
+  width: 260px;
+  height: 260px;
+  left: -120px;
+  top: -120px;
+  border-radius: 70px;
+  transform: rotate(-16deg);
+  background: rgba(168,224,205,0.45);
+}
+.tcard::after{
+  content:"";
+  position:absolute;
+  width: 160px;
+  height: 160px;
+  right: -60px;
+  bottom: -60px;
+  border-radius: 50px;
+  transform: rotate(12deg);
+  background: rgba(240, 200, 175, 0.45);
+}
+
+/* keep content above */
+.tcard > *{ position: relative; z-index: 2; }
+
+.tcard-top{
+  display:flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.tcard-title{
+  margin:0;
+  font-size: 30px;
+}
+
+.tcard-sub{
+  margin: 6px 0 0;
+  opacity: .78;
+}
+
+/* Chips */
+.tcard-chips{
+  display:flex;
+  gap: 10px;
+}
+.chip{
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* glass table container */
+.tglass{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.65);
+  box-shadow: inset 10px 10px 24px rgba(0,0,0,0.06),
+              inset -10px -10px 24px rgba(255,255,255,0.75);
+  overflow:auto;
+}
+
+/* clean table */
+.nice-table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.nice-table thead th{
+  background: rgba(245,235,225,0.95);
+  padding: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.nice-table tbody td{
+  padding: 14px 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  text-align:center;
+  font-size: 16px;
+}
+
+/* responsive */
+@media (max-width: 900px){
+  .tables-hero{ grid-template-columns: 1fr; }
+  .hero-title{ font-size: 30px; }
+}
