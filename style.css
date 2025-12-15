@@ -544,3 +544,86 @@ body{
   .grid{ grid-template-columns: 1fr; }
   .steps{ grid-template-columns: 1fr; }
 }
+
+
+/* STACK TABLES VERTICALLY (NOT SIDE BY SIDE) */
+.table-stack{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+/* Make cards full width */
+.table-card{
+  width: 100%;
+  border-radius: 26px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative blob for creativity */
+.table-card::before{
+  content:"";
+  position:absolute;
+  width: 240px;
+  height: 240px;
+  right: -80px;
+  top: -80px;
+  border-radius: 60px;
+  transform: rotate(18deg);
+  background: rgba(168,224,205,0.55);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+/* Keep content above blob */
+.table-card > *{
+  position: relative;
+  z-index: 2;
+}
+
+/* TABLE LOOK MORE FRIENDLY */
+.table-wrap{
+  margin-top: 12px;
+  border-radius: 18px;
+  overflow: auto;
+  background: rgba(255,255,255,0.75);
+  box-shadow: inset 8px 8px 18px rgba(0,0,0,0.06),
+              inset -8px -8px 18px rgba(255,255,255,0.8);
+}
+
+/* Sticky header = user-friendly */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+thead th{
+  position: sticky;
+  top: 0;
+  background: rgba(245,235,225,0.95);
+  padding: 12px;
+  font-weight: 700;
+  letter-spacing: .8px;
+}
+tbody td{
+  padding: 14px 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+/* Title area look nicer */
+.table-title{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin: 0;
+  font-size: 26px;
+}
+.table-sub{
+  margin: 6px 0 0;
+  opacity: .78;
+}
