@@ -342,3 +342,205 @@ tr:last-child td{ border-bottom:none; }
   transform: translateY(6px);
   transition: opacity .18s ease, transform .18s ease;
 }
+
+
+
+/* Basic */
+* { box-sizing: border-box; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(circle at top left, #cfe8cf, transparent 55%),
+              radial-gradient(circle at bottom right, #f0d1bf, transparent 55%),
+              #e9e2d9;
+  color:#2b2b2b;
+}
+
+.container{
+  width:min(1100px, 92%);
+  margin: 40px auto;
+}
+
+.page{
+  background: rgba(255,255,255,0.35);
+  border-radius: 30px;
+  padding: 26px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+  backdrop-filter: blur(12px);
+}
+
+/* NAV */
+.nav{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  margin-bottom: 22px;
+}
+.nav a{
+  text-decoration:none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.75);
+  color:#2b2b2b;
+  box-shadow: inset 6px 6px 12px rgba(0,0,0,0.06),
+              inset -6px -6px 12px rgba(255,255,255,0.75);
+}
+.nav a.active{
+  background: rgba(168, 224, 205, 0.85);
+}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255,255,255,0.35);
+  box-shadow: inset 10px 10px 24px rgba(0,0,0,0.05),
+              inset -10px -10px 24px rgba(255,255,255,0.7);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo{ font-size: 26px; }
+.hero h1{
+  margin: 0;
+  font-size: clamp(28px, 3.2vw, 40px);
+}
+.hero-desc{
+  margin: 10px 0 16px;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+
+/* Buttons */
+.hero-actions{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.75);
+  color:#2b2b2b;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+.btn.primary{
+  background: rgba(168, 224, 205, 0.95);
+}
+
+/* Chips */
+.chips{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.chip{
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.65);
+  font-size: 13px;
+  box-shadow: inset 6px 6px 12px rgba(0,0,0,0.05),
+              inset -6px -6px 12px rgba(255,255,255,0.7);
+}
+
+/* Right side decorative */
+.hero-right{
+  position: relative;
+  min-height: 220px;
+  border-radius: 24px;
+  overflow:hidden;
+}
+.blob.big{
+  position:absolute;
+  inset: -40px -40px auto auto;
+  width: 260px;
+  height: 260px;
+  border-radius: 60px;
+  transform: rotate(14deg);
+  background: rgba(168,224,205,0.5);
+  filter: blur(0.2px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+.glass-card{
+  position:absolute;
+  left: 14px;
+  bottom: 14px;
+  right: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: inset 8px 8px 18px rgba(0,0,0,0.05),
+              inset -8px -8px 18px rgba(255,255,255,0.75);
+}
+.tiny-title{
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Quick action grid */
+.grid{
+  margin-top: 18px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.card-link{ text-decoration:none; color:inherit; }
+.card{
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+  transition: transform .15s ease;
+}
+.card:hover{ transform: translateY(-3px); }
+.icon{ font-size: 26px; }
+.card h3{ margin: 8px 0 6px; }
+.card p{ margin:0; opacity:.85; line-height:1.45; }
+
+/* How section */
+.how{
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.35);
+  box-shadow: inset 10px 10px 24px rgba(0,0,0,0.05),
+              inset -10px -10px 24px rgba(255,255,255,0.7);
+}
+.how h2{ margin: 0 0 12px; }
+.steps{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.step{
+  display:flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.55);
+}
+.step-num{
+  width: 34px; height: 34px;
+  border-radius: 12px;
+  display:grid; place-items:center;
+  background: rgba(168,224,205,0.95);
+  font-weight: 800;
+}
+.step h4{ margin:0; }
+.step p{ margin:4px 0 0; opacity:.85; }
+
+/* Responsive */
+@media (max-width: 900px){
+  .hero{ grid-template-columns: 1fr; }
+  .grid{ grid-template-columns: 1fr; }
+  .steps{ grid-template-columns: 1fr; }
+}
