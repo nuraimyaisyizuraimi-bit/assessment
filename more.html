@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | Simple Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="board page">
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="tables.html">Tables</a>
+      <a href="calculator.html">Calculator</a>
+      <a class="active" href="more.html">More</a>
+    </div>
+
+    <div class="grid twoEq">
+      <section class="card">
+        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
+        <h2>🧪 Custom Formula</h2>
+        <p>Use variables: A5, A7, A12, A13, A15, A20. Example: <b>(A5 + A20) * 2</b></p>
+
+        <div class="inputs" style="grid-template-columns: 1fr;">
+          <label>Formula
+            <input id="formula" type="text" placeholder="e.g. (A5 + A20) * 2" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="btnRunFormula" class="btnMint" type="button">Run Formula</button>
+          <button class="btnWhite" type="button" onclick="document.getElementById('formula').value='A15 / A7'; updateAll();">Use Example</button>
+        </div>
+
+        <div class="tableWrap" style="margin-top:14px;">
+          <table style="min-width: 0;">
+            <tr><th>Output</th><th>Value</th></tr>
+            <tr><td>Result</td><td id="formulaOut">-</td></tr>
+          </table>
+        </div>
+
+        <div id="formulaErr" class="warn hidden"></div>
+      </section>
+
+      <section class="card">
+        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
+        <h2>📌 Notes</h2>
+        <p>
+          This project demonstrates a multi-page responsive interface with animated pastel UI,
+          real calculation logic, and a safe custom formula playground.
+        </p>
+        <div class="pills">
+          <a class="pill mint" href="calculator.html">Go Calculator</a>
+          <a class="pill peach" href="tables.html">View Tables</a>
+          <a class="pill sage" href="index.html">Back Home</a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

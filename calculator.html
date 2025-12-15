@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculator | Simple Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="board page">
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="tables.html">Tables</a>
+      <a class="active" href="calculator.html">Calculator</a>
+      <a href="more.html">More</a>
+    </div>
+
+    <div class="grid two">
+      <section class="card">
+        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
+        <h2>🧮 Input Values (Table 1)</h2>
+        <p>Type values — results update instantly. Also saved across pages.</p>
+
+        <div class="inputs">
+          <label>A5 <input id="inA5" type="number" value="5" /></label>
+          <label>A7 <input id="inA7" type="number" value="7" /></label>
+          <label>A12 <input id="inA12" type="number" value="12" /></label>
+          <label>A13 <input id="inA13" type="number" value="13" /></label>
+          <label>A15 <input id="inA15" type="number" value="15" /></label>
+          <label>A20 <input id="inA20" type="number" value="20" /></label>
+        </div>
+
+        <div class="actions">
+          <button id="btnCalc" class="btnMint" type="button">Calculate</button>
+          <button id="btnReset" class="btnWhite" type="button">Reset</button>
+          <button id="btnRandom" class="btnPeach" type="button">Random Fill</button>
+        </div>
+
+        <div id="warn" class="warn hidden">⚠️ A7 is 0. Beta cannot be calculated.</div>
+      </section>
+
+      <section class="card">
+        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
+        <h2>📈 Results (Table 2)</h2>
+        <p>Computed from your values:</p>
+
+        <div class="tableWrap">
+          <table>
+            <tr><th>Category</th><th>Value</th></tr>
+            <tr><td>Alpha</td><td id="alpha"></td></tr>
+            <tr><td>Beta</td><td id="beta"></td></tr>
+            <tr><td>Charlie</td><td id="charlie"></td></tr>
+          </table>
+        </div>
+
+        <div class="pills" style="margin-top:14px;">
+          <span class="pill mint">Alpha = A5 + A20</span>
+          <span class="pill peach">Beta = A15 ÷ A7</span>
+          <span class="pill sage">Charlie = A13 × A12</span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
