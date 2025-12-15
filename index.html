@@ -1,96 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simple Assessment</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Home | Simple Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="bg-glow"></div>
-
-  <div class="phone">
-    <div class="statusbar">
-      <div class="dots"></div>
-      <div class="status">Simple Assessment</div>
-      <div class="icons"></div>
+  <div class="board page">
+    <div class="nav">
+      <a class="active" href="index.html">Home</a>
+      <a href="tables.html">Tables</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="more.html">More</a>
     </div>
 
-    <div class="hero">
-      <div class="hero-left">
-        <div class="hello">Hi, Aimy</div>
-        <div class="sub">Table Output & Processing</div>
-      </div>
-      <div class="badge">LIVE</div>
-    </div>
-
-    <div class="cards">
-      <section class="card glass">
-        <div class="card-title">Input (Table 1)</div>
-        <div class="grid">
-          <label class="field"><span>A5</span><input id="inA5" type="number" value="5"></label>
-          <label class="field"><span>A7</span><input id="inA7" type="number" value="7"></label>
-          <label class="field"><span>A12</span><input id="inA12" type="number" value="12"></label>
-          <label class="field"><span>A13</span><input id="inA13" type="number" value="13"></label>
-          <label class="field"><span>A15</span><input id="inA15" type="number" value="15"></label>
-          <label class="field"><span>A20</span><input id="inA20" type="number" value="20"></label>
-        </div>
-
-        <div class="actions">
-          <button id="btnReset" class="btn soft">Reset</button>
-          <button id="btnRandom" class="btn neon">Random</button>
+    <div class="grid twoEq">
+      <section class="card">
+        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
+        <h2>🌿 Pastel Clay UI</h2>
+        <p>
+          A soft 3D-inspired interface (pastel + clay feel) built with real HTML/CSS.
+          Works on mobile, tablet, and desktop.
+        </p>
+        <div class="pills">
+          <span class="pill mint">Responsive</span>
+          <span class="pill peach">Animated</span>
+          <span class="pill sage">Multi-page</span>
         </div>
       </section>
 
-      <section class="card glass">
-        <div class="card-title">Table 1</div>
-        <div class="table-wrap">
-          <table>
-            <tr>
-              <th>A5</th><th>A7</th><th>A12</th><th>A13</th><th>A15</th><th>A20</th>
-            </tr>
-            <tr>
-              <td id="A5">5</td>
-              <td id="A7">7</td>
-              <td id="A12">12</td>
-              <td id="A13">13</td>
-              <td id="A15">15</td>
-              <td id="A20">20</td>
-            </tr>
-          </table>
+      <section class="card">
+        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
+        <h2>✨ Quick Links</h2>
+        <p>Jump to the features:</p>
+        <div class="pills">
+          <a class="pill mint" href="tables.html">📊 Tables</a>
+          <a class="pill peach" href="calculator.html">🧮 Calculator</a>
+          <a class="pill sage" href="more.html">🧪 More</a>
         </div>
       </section>
-
-      <section class="card glass">
-        <div class="card-title">Table 2</div>
-        <div class="table-wrap">
-          <table>
-            <tr><th>Category</th><th>Value</th></tr>
-            <tr><td>Alpha</td><td id="alpha"></td></tr>
-            <tr><td>Beta</td><td id="beta"></td></tr>
-            <tr><td>Charlie</td><td id="charlie"></td></tr>
-          </table>
-        </div>
-
-        <div id="warn" class="warn hidden">
-          ⚠️ A7 is 0. Beta cannot be calculated (division by zero).
-        </div>
-      </section>
-    </div>
-
-    <div class="bottom-nav">
-      <div class="nav-pill">
-        <span class="nav-dot"></span>
-        <span>Home</span>
-      </div>
-      <div class="nav-pill">Tables</div>
-      <div class="nav-pill">Calc</div>
-      <div class="nav-pill">Info</div>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
-
