@@ -15,34 +15,54 @@
       <a href="more.html">More</a>
     </div>
 
-    <!-- Optional: small friendly header -->
-    <div class="page-head">
-      <h1 class="page-title">📋 Tables Overview</h1>
-      <p class="page-desc">Table 1 shows your base values. Table 2 shows the calculated outputs.</p>
-    </div>
+    <!-- Compact header (no giant empty area) -->
+    <header class="tables-hero">
+      <div class="hero-left">
+        <div class="hero-badge">📋 Tables</div>
+        <h1 class="hero-title">Your Inputs & Results</h1>
+        <p class="hero-desc">
+          Table 1 contains your base values. Table 2 shows the calculated outputs.
+          Use the switch to focus on one table.
+        </p>
 
-    <!-- QUICK SWITCH (optional but user friendly) -->
-    <div class="segmented" role="tablist" aria-label="Switch tables">
-      <button class="seg-btn active" type="button" data-show="t1">Table 1</button>
-      <button class="seg-btn" type="button" data-show="t2">Table 2</button>
-      <button class="seg-btn" type="button" data-show="both">Show Both</button>
-    </div>
+        <div class="pill-switch" role="tablist" aria-label="Switch tables">
+          <button class="pill active" type="button" data-show="t1">Table 1</button>
+          <button class="pill" type="button" data-show="t2">Table 2</button>
+          <button class="pill" type="button" data-show="both">Both</button>
+        </div>
+      </div>
 
-    <!-- STACKED LAYOUT -->
-    <div class="table-stack">
+      <div class="hero-right">
+        <div class="mini-card">
+          <div class="mini-title">Quick Summary ✨</div>
+          <div class="mini-row">
+            <span class="mini-chip">A5–A20 values</span>
+            <span class="mini-chip">Alpha / Beta / Charlie</span>
+          </div>
+          <div class="mini-foot">Tip: Update inputs in Calculator → auto sync here.</div>
+        </div>
+      </div>
+    </header>
 
-      <!-- TABLE 1 -->
-      <section id="t1" class="table-card">
-        <div class="illustration">
-          <div class="cut"></div>
-          <div class="dot"></div>
+    <!-- STACK -->
+    <main class="tables-stack">
+
+      <!-- TABLE 1 CARD -->
+      <section id="t1" class="tcard">
+        <div class="tcard-top">
+          <div>
+            <h2 class="tcard-title">📊 Table 1</h2>
+            <p class="tcard-sub">Base values (auto sync from Calculator page)</p>
+          </div>
+
+          <div class="tcard-chips">
+            <span class="chip">6 Values</span>
+            <span class="chip">Inputs</span>
+          </div>
         </div>
 
-        <h2 class="table-title">📊 Table 1</h2>
-        <p class="table-sub">Base values (auto sync from Calculator page).</p>
-
-        <div class="tableWrap">
-          <table>
+        <div class="tglass">
+          <table class="nice-table">
             <thead>
               <tr>
                 <th>A5</th><th>A7</th><th>A12</th><th>A13</th><th>A15</th><th>A20</th>
@@ -62,42 +82,59 @@
         </div>
       </section>
 
-      <!-- TABLE 2 -->
-      <section id="t2" class="table-card">
-        <div class="illustration">
-          <div class="cut"></div>
-          <div class="dot"></div>
+      <!-- TABLE 2 CARD -->
+      <section id="t2" class="tcard">
+        <div class="tcard-top">
+          <div>
+            <h2 class="tcard-title">📈 Table 2</h2>
+            <p class="tcard-sub">Processed outputs (Alpha / Beta / Charlie)</p>
+          </div>
+
+          <div class="tcard-chips">
+            <span class="chip">3 Outputs</span>
+            <span class="chip">Results</span>
+          </div>
         </div>
 
-        <h2 class="table-title">📈 Table 2</h2>
-        <p class="table-sub">Processed outputs (Alpha/Beta/Charlie).</p>
-
-        <div class="tableWrap">
-          <table>
+        <div class="tglass">
+          <table class="nice-table">
             <thead>
-              <tr>
-                <th>Category</th>
-                <th>Value</th>
-              </tr>
+              <tr><th>Category</th><th>Value</th></tr>
             </thead>
             <tbody>
-              <tr><td>Alpha</td><td id="alpha"></td></tr>
-              <tr><td>Beta</td><td id="beta"></td></tr>
-              <tr><td>Charlie</td><td id="charlie"></td></tr>
+              <tr><td>Alpha</td><td id="alpha">—</td></tr>
+              <tr><td>Beta</td><td id="beta">—</td></tr>
+              <tr><td>Charlie</td><td id="charlie">—</td></tr>
             </tbody>
           </table>
-        </div>
 
-        <div id="warn" class="warn hidden">⚠️ A7 is 0. Beta cannot be calculated.</div>
+          <div id="warn" class="warn hidden">⚠️ A7 is 0. Beta cannot be calculated.</div>
+        </div>
       </section>
 
-    </div>
+    </main>
   </div>
 
-  <!-- Quick switch logic (does NOT affect your main script.js) -->
+  <!-- Switch logic -->
   <script>
-    const buttons = document.querySelectorAll(".seg-btn");
+    const pills = document.querySelectorAll(".pill");
     const t1 = document.getElementById("t1");
     const t2 = document.getElementById("t2");
 
-    function se
+    function setView(view){
+      pills.forEach(p => p.classList.remove("active"));
+      const active = [...pills].find(p => p.dataset.show === view);
+      if(active) active.classList.add("active");
+
+      if(view === "t1"){ t1.style.display=""; t2.style.display="none"; }
+      else if(view === "t2"){ t1.style.display="none"; t2.style.display=""; }
+      else { t1.style.display=""; t2.style.display=""; }
+    }
+
+    pills.forEach(p => p.addEventListener("click", () => setView(p.dataset.show)));
+    setView("both");
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
