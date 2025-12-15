@@ -15,48 +15,89 @@
       <a href="more.html">More</a>
     </div>
 
-    <div class="grid twoEq">
-      <section class="table-card">
-        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
-        <h2 class="table-title">Table 1</h2>
+    <!-- Optional: small friendly header -->
+    <div class="page-head">
+      <h1 class="page-title">📋 Tables Overview</h1>
+      <p class="page-desc">Table 1 shows your base values. Table 2 shows the calculated outputs.</p>
+    </div>
+
+    <!-- QUICK SWITCH (optional but user friendly) -->
+    <div class="segmented" role="tablist" aria-label="Switch tables">
+      <button class="seg-btn active" type="button" data-show="t1">Table 1</button>
+      <button class="seg-btn" type="button" data-show="t2">Table 2</button>
+      <button class="seg-btn" type="button" data-show="both">Show Both</button>
+    </div>
+
+    <!-- STACKED LAYOUT -->
+    <div class="table-stack">
+
+      <!-- TABLE 1 -->
+      <section id="t1" class="table-card">
+        <div class="illustration">
+          <div class="cut"></div>
+          <div class="dot"></div>
+        </div>
+
+        <h2 class="table-title">📊 Table 1</h2>
         <p class="table-sub">Base values (auto sync from Calculator page).</p>
 
         <div class="tableWrap">
           <table>
-            <tr>
-              <th>A5</th><th>A7</th><th>A12</th><th>A13</th><th>A15</th><th>A20</th>
-            </tr>
-            <tr>
-              <td id="A5">5</td>
-              <td id="A7">7</td>
-              <td id="A12">12</td>
-              <td id="A13">13</td>
-              <td id="A15">15</td>
-              <td id="A20">20</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>A5</th><th>A7</th><th>A12</th><th>A13</th><th>A15</th><th>A20</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="A5">5</td>
+                <td id="A7">7</td>
+                <td id="A12">12</td>
+                <td id="A13">13</td>
+                <td id="A15">15</td>
+                <td id="A20">20</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </section>
 
-      <section class="table-card">
-        <div class="illustration"><div class="cut"></div><div class="dot"></div></div>
-        <h2 class="table-title">Table 2</h2>
+      <!-- TABLE 2 -->
+      <section id="t2" class="table-card">
+        <div class="illustration">
+          <div class="cut"></div>
+          <div class="dot"></div>
+        </div>
+
+        <h2 class="table-title">📈 Table 2</h2>
         <p class="table-sub">Processed outputs (Alpha/Beta/Charlie).</p>
+
         <div class="tableWrap">
           <table>
-            <tr><th>Category</th><th>Value</th></tr>
-            <tr><td>Alpha</td><td id="alpha"></td></tr>
-            <tr><td>Beta</td><td id="beta"></td></tr>
-            <tr><td>Charlie</td><td id="charlie"></td></tr>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Alpha</td><td id="alpha"></td></tr>
+              <tr><td>Beta</td><td id="beta"></td></tr>
+              <tr><td>Charlie</td><td id="charlie"></td></tr>
+            </tbody>
           </table>
         </div>
 
         <div id="warn" class="warn hidden">⚠️ A7 is 0. Beta cannot be calculated.</div>
       </section>
+
     </div>
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- Quick switch logic (does NOT affect your main script.js) -->
+  <script>
+    const buttons = document.querySelectorAll(".seg-btn");
+    const t1 = document.getElementById("t1");
+    const t2 = document.getElementById("t2");
 
+    function se
