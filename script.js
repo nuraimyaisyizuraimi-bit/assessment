@@ -1,72 +1,215 @@
-function num(v){
+// ---------- Helpers ----------
+const $ = (id) => document.getElementById(id);
+
+function safeNumber(v){
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
 }
 
 function setText(id, value){
-  document.getElementById(id).innerText = value;
+  const el = $(id);
+  if (el) el.textContent = value;
 }
 
+function getInput(id){
+  const el = $(id);
+  if (!el) return null;
+  return safeNumber(el.value);
+}
+
+function getCell(id){
+  const el = $(id);
+  if (!el) return null;
+  return safeNumber(el.textContent);
+}
+
+function setInput(id, val){
+  const el = $(id);
+  if (el) el.value = val;
+}
+
+// ---------- Persistence ----------
+const KEY = "simple_assessment_values_v1";
+
+function loadValues(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    return raw ? JSON.parse(raw) : null;
+  }catch{
+    return null;
+  }
+}
+
+function saveValues(vals){
+  try{
+    localStorage.setItem(KEY, JSON.stringify(vals));
+  }catch{}
+}
+
+function currentValues(){
+  // 1) Try inputs/table cells
+  let A5 = getInput("inA5");   if (A5 === null) A5 = getCell("A5");
+  let A7 = getInput("inA7");   if (A7 === null) A7 = getCell("A7");
+  let A12= getInput("inA12");  if (A12=== null) A12= getCell("A12");
+  let A13= getInput("inA13");  if (A13=== null) A13= getCell("A13");
+  let A15= getInput("inA15");  if (A15=== null) A15= getCell("A15");
+  let A20= getInput("inA20");  if (A20=== null) A20= getCell("A20");
+
+  // 2) If not found, try saved values
+  if ([A5,A7,A12,A13,A15,A20].some(v => v === null)){
+    const saved = loadValues();
+    if (saved && typeof saved === "object"){
+      return saved;
+    }
+  }
+
+  // 3) If still nothing (like opening more.html first), use default sample
+  if ([A5,A7,A12,A13,A15,A20].some(v => v === null)){
+    return { A5:5, A7:7, A12:12, A13:13, A15:15, A20:20 };
+  }
+
+  return { A5, A7, A12, A13, A15, A20 };
+}
+
+function applyValuesToPage(vals){
+  // sync inputs if exist
+  setInput("inA5", vals.A5);
+  setInput("inA7", vals.A7);
+  setInput("inA12", vals.A12);
+  setInput("inA13", vals.A13);
+  setInput("inA15", vals.A15);
+  setInput("inA20", vals.A20);
+
+  // sync table cells if exist
+  setText("A5", vals.A5);
+  setText("A7", vals.A7);
+  setText("A12", vals.A12);
+  setText("A13", vals.A13);
+  setText("A15", vals.A15);
+  setText("A20", vals.A20);
+}
+
+// ---------- Core calculation ----------
 function updateAll(){
-  const A5  = num(document.getElementById("inA5").value);
-  const A7  = num(document.getElementById("inA7").value);
-  const A12 = num(document.getElementById("inA12").value);
-  const A13 = num(document.getElementById("inA13").value);
-  const A15 = num(document.getElementById("inA15").value);
-  const A20 = num(document.getElementById("inA20").value);
+  const vals = currentValues();
+  if (!vals) return;
 
-  // Update Table 1 cells
-  setText("A5", A5);
-  setText("A7", A7);
-  setText("A12", A12);
-  setText("A13", A13);
-  setText("A15", A15);
-  setText("A20", A20);
+  // store for other pages
+  saveValues(vals);
 
-  // Calculations for Table 2
-  const alpha = A5 + A20;
-  const charlie = A13 * A12;
+  const alpha = vals.A5 + vals.A20;
+  const charlie = vals.A13 * vals.A12;
 
   setText("alpha", alpha);
   setText("charlie", charlie);
 
-  const warn = document.getElementById("warn");
-  if (A7 === 0){
+  // beta with divide-by-zero protection
+  const warn = $("warn");
+  if (vals.A7 === 0){
     setText("beta", "-");
-    warn.classList.remove("hidden");
-  } else {
-    const beta = A15 / A7;
-    setText("beta", beta.toFixed(2));
-    warn.classList.add("hidden");
+    if (warn) warn.classList.remove("hidden");
+  }else{
+    setText("beta", (vals.A15 / vals.A7).toFixed(2));
+    if (warn) warn.classList.add("hidden");
+  }
+
+  // custom formula page
+  const out = $("formulaOut");
+  const err = $("formulaErr");
+  const inp = $("formula");
+  if (inp && out){
+    const res = evaluateFormula(inp.value, vals);
+    if (res.ok){
+      out.textContent = String(res.value);
+      if (err) err.classList.add("hidden");
+    }else{
+      out.textContent = "-";
+      if (err){
+        err.textContent = "⚠️ " + res.error;
+        err.classList.remove("hidden");
+      }
+    }
   }
 }
 
-// Live update on typing
-["inA5","inA7","inA12","inA13","inA15","inA20"].forEach(id => {
-  document.getElementById(id).addEventListener("input", updateAll);
-});
+// ---------- Safe custom formula evaluator ----------
+function evaluateFormula(expr, vars){
+  const raw = (expr || "").trim();
+  if (!raw) return { ok:false, error:"Enter a formula (e.g. A5 + A20)" };
 
-// Buttons
-document.getElementById("btnReset").addEventListener("click", () => {
-  document.getElementById("inA5").value = 5;
-  document.getElementById("inA7").value = 7;
-  document.getElementById("inA12").value = 12;
-  document.getElementById("inA13").value = 13;
-  document.getElementById("inA15").value = 15;
-  document.getElementById("inA20").value = 20;
+  // allow only these characters
+  // A, numbers, whitespace, operators + - * / ( ) . 
+  if (!/^[A0-9+\-*/().\s]+$/i.test(raw)){
+    return { ok:false, error:"Only A-values and + - * / ( ) are allowed." };
+  }
+
+  // replace variables
+  const replaced = raw
+    .toUpperCase()
+    .replace(/\bA5\b/g,  String(vars.A5))
+    .replace(/\bA7\b/g,  String(vars.A7))
+    .replace(/\bA12\b/g, String(vars.A12))
+    .replace(/\bA13\b/g, String(vars.A13))
+    .replace(/\bA15\b/g, String(vars.A15))
+    .replace(/\bA20\b/g, String(vars.A20));
+
+  try{
+    // eslint-disable-next-line no-new-func
+    const fn = new Function(`return (${replaced});`);
+    const value = fn();
+    if (!Number.isFinite(value)) return { ok:false, error:"Result is not a valid number." };
+    return { ok:true, value: (Math.round(value * 100) / 100) };
+  }catch{
+    return { ok:false, error:"Invalid formula format." };
+  }
+}
+
+// ---------- Page transitions on navigation ----------
+function wireNavFade(){
+  document.querySelectorAll(".nav a").forEach(a=>{
+    a.addEventListener("click", (e)=>{
+      const href = a.getAttribute("href");
+      if (!href || href.startsWith("#")) return;
+      e.preventDefault();
+      const board = document.querySelector(".board");
+      if (board) board.classList.add("fadeOut");
+      setTimeout(()=>{ window.location.href = href; }, 160);
+    });
+  });
+}
+
+// ---------- Initialize ----------
+document.addEventListener("DOMContentLoaded", ()=>{
+  // apply saved values across pages
+  const saved = loadValues();
+  if (saved) applyValuesToPage(saved);
+
+  // live update on input
+  ["inA5","inA7","inA12","inA13","inA15","inA20"].forEach(id=>{
+    const el = $(id);
+    if (el) el.addEventListener("input", updateAll);
+  });
+
+  // buttons if exist
+  const btnCalc = $("btnCalc");
+  if (btnCalc) btnCalc.addEventListener("click", updateAll);
+
+  const btnReset = $("btnReset");
+  if (btnReset) btnReset.addEventListener("click", ()=>{
+    applyValuesToPage({A5:5,A7:7,A12:12,A13:13,A15:15,A20:20});
+    updateAll();
+  });
+
+  const btnRandom = $("btnRandom");
+  if (btnRandom) btnRandom.addEventListener("click", ()=>{
+    const rnd = ()=> Math.floor(Math.random()*90)+1;
+    applyValuesToPage({A5:rnd(),A7:rnd(),A12:rnd(),A13:rnd(),A15:rnd(),A20:rnd()});
+    updateAll();
+  });
+
+  const btnRun = $("btnRunFormula");
+  if (btnRun) btnRun.addEventListener("click", updateAll);
+
+  wireNavFade();
   updateAll();
 });
-
-document.getElementById("btnRandom").addEventListener("click", () => {
-  const rnd = () => Math.floor(Math.random() * 90) + 1;
-  document.getElementById("inA5").value = rnd();
-  document.getElementById("inA7").value = rnd();
-  document.getElementById("inA12").value = rnd();
-  document.getElementById("inA13").value = rnd();
-  document.getElementById("inA15").value = rnd();
-  document.getElementById("inA20").value = rnd();
-  updateAll();
-});
-
-// Initial render
-updateAll();
